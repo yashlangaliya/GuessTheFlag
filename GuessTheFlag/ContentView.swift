@@ -7,6 +7,21 @@
 
 import SwiftUI
 
+struct Option: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+        .clipShape(Capsule())
+        .overlay(Capsule().stroke(Color.black, lineWidth: 1))
+        .shadow(color: .black, radius: 3, x: 2, y: 3)
+    }
+}
+
+extension View {
+    func opetionStyle () -> some View {
+        self.modifier(Option())
+    }
+}
+
 struct ContentView: View {
     @State private var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Russia", "Spain", "UK", "US", "India"].shuffled()
     @State private var correctAnswer = Int.random(in: 0 ..< 3)
@@ -26,9 +41,7 @@ struct ContentView: View {
                     }) {
                         Image(self.countries[number]).renderingMode(.original)
                     }
-                    .clipShape(Capsule())
-                    .overlay(Capsule().stroke(Color.black, lineWidth: 1))
-                    .shadow(color: .black, radius: 3, x: 2, y: 3)
+                .opetionStyle()
                 }
                 Spacer()
                 Text("Score: \(score)")
